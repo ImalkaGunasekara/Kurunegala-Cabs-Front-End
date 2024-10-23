@@ -15,7 +15,9 @@ function DefaultLayout(props) {
       <Menu.Item>
         <a href="/reviews">Reviews</a>
       </Menu.Item>
-
+      <Menu.Item>
+        <a href="/admin">Admin</a>
+      </Menu.Item>
       <Menu.Item
         onClick={() => {
           localStorage.removeItem("user");
