@@ -6,6 +6,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import BookingCar from "./pages/BookingCar";
 import UserBookings from "./pages/UserBookings";
+import AddCar from "./pages/AddCar";
+import AdminHome from "./pages/AdminHome";
+import EditCar from "./pages/EditCar";
 import ReviewsPage from "./pages/Review";
 
 export const ProtectedRoute = ({ children }) => {
@@ -52,7 +55,33 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-
+  {
+    path: "addcar",
+    element: (
+      <ProtectedRoute>
+        <AddCar />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "editcar/:carid",
+    element: (
+      <ProtectedRoute>
+        <EditCar />
+      </ProtectedRoute>
+    ),
+    loader: ({ params }) => {
+      return params.carid;
+    },
+  },
+  {
+    path: "admin",
+    element: (
+      <ProtectedRoute>
+        <AdminHome />
+      </ProtectedRoute>
+    ),
+  },
   {
     path: "reviews",
     element: (
