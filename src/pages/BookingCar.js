@@ -11,8 +11,9 @@ import AOS from 'aos';
 import {
   useLoaderData,
 } from "react-router-dom";
-
 import 'aos/dist/aos.css'; // You can also use <link> for styles
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const { RangePicker } = DatePicker;
 function BookingCar() {
   const match = useLoaderData();
