@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function ReviewList () {
     const [reviews, setReviews] = useState([]);
@@ -8,7 +8,7 @@ function ReviewList () {
     useEffect(()=>{
         const fetchReview = async () =>{
             try{
-                const response = await axios.get('http://localhost:5000/api/reviews');
+                const response = await axios.get(`${apiUrl}/api/reviews`);
                 setReviews(response.data);
             }catch(error){
                 console.error("Error Fetching Reviews:", error);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function ReviewForm() {
     const [userName, setUserName] = useState("");
@@ -10,7 +11,7 @@ function ReviewForm() {
         e.preventDefault();
 
         try {
-            await axios.post('http://localhost:5000/api/reviews', {
+            await axios.post(`${apiUrl}/api/reviews`, {
                 userName,
                 reviewText,
                 rating
