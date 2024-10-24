@@ -1,4 +1,4 @@
-name: Deploy React App to S3 
+name: Deploy React App to S3
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
       - name: Sync React app to S3
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --follow-symlinks --delete
+          args: --follow-symlinks --delete  # Removed --acl public-read
         env:
           AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}  # Your existing S3_BUCKET secret
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Your IAM Access Key stored in GitHub Secrets
