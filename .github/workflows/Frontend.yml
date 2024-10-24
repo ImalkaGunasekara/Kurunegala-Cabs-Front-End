@@ -23,7 +23,8 @@ jobs:
         working-directory: .  # Install dependencies in the root directory
 
       - name: Build the React app
-        run: npm run build
+        run: |
+          CI= npm run build
         working-directory: .  # Build the app in the root directory
 
       - name: Sync React app to S3
