@@ -1,14 +1,14 @@
-name: Deploy to S3
+name: Deploy React App to S3 
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - main  # Trigger the action on push to the main branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -16,23 +16,23 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Specify your Node.js version
+          node-version: '16'  # Specify the Node.js version you're using
 
       - name: Install dependencies
         run: npm install
-        working-directory: .  # Run npm install in the root directory
+        working-directory: .  # Install dependencies in the root directory
 
-      - name: Build
+      - name: Build the React app
         run: npm run build
-        working-directory: .  # Build in the root directory
+        working-directory: .  # Build the app in the root directory
 
-      - name: Sync to S3
-        uses: jakejarvis/s3-sync-action@0.5.0
+      - name: Sync React app to S3
+        uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --delete
+          args: --acl public-read --follow-symlinks --delete
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: './build'  # Adjusted to point to the build folder created in the root
-          DEST_DIR: 's3://${{ secrets.S3_BUCKET }}'
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}  # Your existing S3_BUCKET secret
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Your IAM Access Key stored in GitHub Secrets
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # Your IAM Secret Key stored in GitHub Secrets
+          AWS_REGION: ${{ secrets.AWS_REGION }}  # Your AWS region stored in GitHub Secrets
+          SOURCE_DIR: './build'  # Point to the build directory for React
